@@ -1,48 +1,51 @@
 ---
 sidebar_position: 1
 slug: /
+title: 介绍
 ---
 
-# Tutorial Intro
+# Paper's Delight 是什么？
 
-Let's discover **Docusaurus in less than 5 minutes**.
+Paper's Delight 是一款运行在 Paper / Folia（包括分支，如 Leaf、Luminol）服务端的烹饪类插件，由开源插件 CraftEngine 驱动，旨在还原知名乡村风格烹饪模组《农夫乐事》的体验。
 
-## Getting Started
+## 兼容版本
 
-Get started by **creating a new site**.
+本插件在 Paper / Folia 服务端上运行效果最佳，也兼容像是 Leaf、Luminol 这种从 Paper / Folia 分支而来的优化服务端。
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+本插件支持 1.21 \~ 26.2 MC 版本。
 
-### What you'll need
+[不要使用 Canvas 服务端](https://github.com/LuminolMC/AboutCanvas)，请使用其他优化类服务端，如 Leaf、Leaves、Luminol 或 Lophine。
 
-- [Node.js](https://nodejs.org/en/download/) version 20.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+不要在混合服务端（如 Mohist 等）上使用本插件，你完全可以直接使用模组版农夫乐事。
 
-## Generate a new site
+## 试玩
 
-Generate a new Docusaurus site using the **classic template**.
+**现在你可以在 Cold Mouse 托管的插件测试专用生存服上体验这款插件**
 
-The classic template will automatically be added to your project after you run the command:
+Java 版 26.2: `coldmouse.net:40600`
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+## 特色
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+Paper's Delight 尽可能尝试还原《农夫乐事》的体验和细节（如绳子的特殊放置方式，绳子挂钟，榻榻米方块的连接，以及**非家具且拥有碰撞箱**的双格榻榻米垫等）。目前已完成了农夫乐事本体的内容，并正在创作更多乐事附属（饺子乐事、末地乐事已免费发布作为购买赠品）。
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+### 沃土与耕地机制
 
-## Start your site
+![沃土与耕地](/img/farmland.png)
 
-Run the development server:
+Paper's Delight 通过对自定义作物存活条件的控制，做到**完全不破坏原版作物行为的同时，使其可以种植在自定义耕地上**，且使用新增的"高级作物"方块行为，尽可能让自定义作物的行为贴近原版作物行为。
 
-```bash
-cd my-website
-npm run start
-```
+### 绳栅栏
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+![绳栅栏](/img/rope-fence.png)
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+**不可能在完全不破坏原版栅栏的情况下创建绳栅栏这种模型特殊的栅栏。**为了尽可能减轻影响，绳栅栏使用了**透明的绯红木栅栏**作为碰撞箱，并修改了绯红木栅栏物品的行为，使其放置自定义的绯红木栅栏，达到了几乎完全不影响原版特性的效果。
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+绯红木栅栏**不会**自然生成在世界中，所以这么做不会造成太大影响；而对于已经放置了绯红木栅栏的世界，这些栅栏会被映射成*红树木栅栏*，只需要拆下来重新放置就能恢复绯红木栅栏的外观。
+
+### 篮子
+
+![篮子1](/img/basket1.png)
+
+![篮子2](/img/basket2.png)
+
+Paper's Delight 完美还原了农夫乐事的篮子机制，包含吸物品、碰撞箱，以及红石锁定等，且可自定义吸取间隔、是否启用红石锁定篮子…… 所有这些全都在 CE 的配置文件中，完全可自定义。
