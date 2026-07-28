@@ -82,11 +82,6 @@ const config = {
             label: '文档',
           },
           {to: '/changelog', label: '更新日志', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
         ],
       },
       footer: {
