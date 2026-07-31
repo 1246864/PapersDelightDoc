@@ -1,28 +1,24 @@
-name: Trigger External Build
-
-on:
-  push:
-    branches:
-      - main
-      - master
-  # 为了测试，你也可以临时加上 pull_request 事件（测试通过后删除）
-  # pull_request:
-
-jobs:
-  webhook:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send POST request to build server
-        run: |
-          # 方法1：使用 github.repository_url（完整URL，带 https）
-          REPO_URL="${{ github.repository_url }}"
-          # 如果你需要 .git 后缀，可以加上
-          # REPO_URL="${{ github.repository_url }}.git"
-          
-          # 方法2：手动拼接（更保险）
-          # REPO_URL="https://github.com/${{ github.repository }}"
-          
-          echo "Sending repo: $REPO_URL"
-          curl -X POST http://coldmouse.net:15379/build \
-            -H "Content-Type: application/json" \
-            -d "{\"repo\": \"$REPO_URL\"}"
+- name: Send POST request
+  run: |
+    REPO_URL="https://github.com/${{ github.repository }}.git"
+    echo "Repository URL: $REPO_URL"
+    
+    # 使用 jq 构建 JSON，自动转义特殊字符（如 &、#、引号等）
+    JSON_DATA=$(jq -n --arg repo "$REPO_URL" '{repo: $repo}')
+    echo "Payload: $JSON_DATA"
+    
+    # 发送请求，选项含义：
+    #   -v          输出详细请求/响应，方便调试
+    #   --fail      当 HTTP 状态码 >= 400 时，curl 返回非零退出码
+    #   -w          打印 HTTP 状态码到终端
+    curl -v --fail -X POST http://coldmouse.net:15379/build \
+         -H "Content-Type: application/json" \
+         -d "$JSON_DATA" \
+         -w "\nHTTP Status: %{http_code}\n"
+    
+    # 检查 curl 执行结果
+    if [ $? -ne 0 ]; then
+      echo "::error::POST request failed!"
+      exit 1
+    fi
+    echo "Request succeeded."
