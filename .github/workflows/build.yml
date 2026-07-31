@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - master
+  # 为了测试，你也可以临时加上 pull_request 事件（测试通过后删除）
+  # pull_request:
 
 jobs:
   webhook:
@@ -12,8 +14,15 @@ jobs:
     steps:
       - name: Send POST request to build server
         run: |
+          # 方法1：使用 github.repository_url（完整URL，带 https）
           REPO_URL="${{ github.repository_url }}"
-          echo "Sending repo: $REPO_URL"   # 方便排查
+          # 如果你需要 .git 后缀，可以加上
+          # REPO_URL="${{ github.repository_url }}.git"
+          
+          # 方法2：手动拼接（更保险）
+          # REPO_URL="https://github.com/${{ github.repository }}"
+          
+          echo "Sending repo: $REPO_URL"
           curl -X POST http://coldmouse.net:15379/build \
             -H "Content-Type: application/json" \
             -d "{\"repo\": \"$REPO_URL\"}"
